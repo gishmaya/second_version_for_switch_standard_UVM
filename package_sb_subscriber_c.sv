@@ -1,8 +1,8 @@
-typedef class package_scoreboard;
+typedef class package_scoreboard_c;
  
-class package_sb_subscriber extends uvm_subscriber#(package_c);
-  `uvm_component_utils(package_sb_subscriber)
-  package_scoreboard pkg_sb;
+class package_sb_subscriber_c extends uvm_subscriber#(package_c);
+  `uvm_component_utils(package_sb_subscriber_c)
+  package_scoreboard_c pkg_sb;
   integer num_of_ap;
     
   function new(string name, uvm_component parent);
@@ -19,4 +19,4 @@ class package_sb_subscriber extends uvm_subscriber#(package_c);
         pkg_sb.accepted=pkg_sb.accepted+1;
       end
   endfunction: write
-endclass: package_sb_subscriber
+endclass: package_sb_subscriber_c
