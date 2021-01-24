@@ -1,7 +1,7 @@
 class reg_monitor_c extends uvm_monitor;
   `uvm_component_utils(reg_monitor_c)
  
-  uvm_analysis_port#(reg_transaction_c) reg_ap;
+  uvm_analysis_port#(reg_sequence_c) reg_ap;
   virtual conf_DUT_i          conf_if;
  
   function new(string name, uvm_component parent);
@@ -16,7 +16,7 @@ class reg_monitor_c extends uvm_monitor;
   endfunction: build_phase
   
   task run_phase(uvm_phase phase);
-    reg_transaction_c reg_transaction = new();
+    reg_sequence_c reg_transaction = new();
     forever
       begin
         @(posedge conf_if.conf_data_valid)
