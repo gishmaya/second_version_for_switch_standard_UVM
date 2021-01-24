@@ -1,2 +1,3 @@
 # second_version_for_switch_standard_UVM
-My second version of verification environment for packet switch by the standard classes of UVM.
+After my first project I wanted to practice using the standard UVM classes.
+Therefore, I have rebuilt a verification environment for Packet Switch by these classes, including in the RAL.
