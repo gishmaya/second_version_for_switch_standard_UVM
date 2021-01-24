@@ -1,5 +1,5 @@
-class package_fc_subscriber extends uvm_subscriber#(package_c);
-  `uvm_component_utils(package_fc_subscriber)
+class package_fc_subscriber_c extends uvm_subscriber#(package_c);
+  `uvm_component_utils(package_fc_subscriber_c)
  
   package_c pkg_tx;
       
@@ -34,4 +34,4 @@ class package_fc_subscriber extends uvm_subscriber#(package_c);
     package_cg.sample();
   endfunction: write
               
-endclass: package_fc_subscriber
+endclass: package_fc_subscriber_c
