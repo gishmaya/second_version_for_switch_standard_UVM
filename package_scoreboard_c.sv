@@ -1,7 +1,7 @@
-`include "sb_subscriber.sv"
+`include "package_sb_subscriber_c.sv"
 
-class package_scoreboard extends uvm_scoreboard;
-  `uvm_component_utils(package_scoreboard)
+class package_scoreboard_c extends uvm_scoreboard;
+  `uvm_component_utils(package_scoreboard_c)
   integer pushed_0=0;
   integer pushed_1=0;
   integer accepted=0;
@@ -12,8 +12,8 @@ class package_scoreboard extends uvm_scoreboard;
   uvm_analysis_export#(package_c) analysis_export0;
   uvm_analysis_export#(package_c) analysis_export1;
    
-  package_sb_subscriber pkg_sb_sub0;
-  package_sb_subscriber pkg_sb_sub1;
+  package_sb_subscriber_c pkg_sb_sub0;
+  package_sb_subscriber_c pkg_sb_sub1;
 
   package_c expected_packets0[$];
   package_c expected_packets1[$];
@@ -22,8 +22,8 @@ class package_scoreboard extends uvm_scoreboard;
     super.build_phase(phase);
     analysis_export0 = new( .name("analysis_export0"), .parent(this));
     analysis_export1 = new( .name("analysis_export1"), .parent(this));
-    pkg_sb_sub0 = package_sb_subscriber::type_id::create(.name("pkg_sb_sub0"), .parent(this));
-    pkg_sb_sub1 = package_sb_subscriber::type_id::create(.name("pkg_sb_sub1"), .parent(this));
+    pkg_sb_sub0 = package_sb_subscriber_c::type_id::create(.name("pkg_sb_sub0"), .parent(this));
+    pkg_sb_sub1 = package_sb_subscriber_c::type_id::create(.name("pkg_sb_sub1"), .parent(this));
     pkg_sb_sub0.num_of_ap=0;
     pkg_sb_sub1.num_of_ap=1;
   endfunction: build_phase
@@ -108,85 +108,6 @@ class package_scoreboard extends uvm_scoreboard;
     $display("");
   endfunction
   
-endclass: package_scoreboard
+endclass: package_scoreboard_c
   
   
-  
- 
-
-
-
-
-
-
-
-  
-  
- //typedef class package_sb_subscriber;
- 
-  
-    
-  /*package_c waiting_list0[$];
-  package_c waiting_list1[$];
-  package_c tmp_list[$];
-  package_c tmp_pkg;*/
-  
-  
-  /*  function void check_package(package_c pkg);
-    integer dst=get_dest_by_map(pkg.head.dest_address);
-    package_c expected_packet;
-    `uvm_info("check pkg from scoreboard!", { "\n" }, UVM_LOW)
-    //if(regs_block.addr_map_c.data)
-      begin
-        if(dst==0)
-          expected_packet=expected_packets0.pop_front();
-        if(dst==1)
-          expected_packet=expected_packets1.pop_front();
-      end
-    if(expected_packet.compare(pkg))
-      begin
-        this.match=this.match+1;
-        `uvm_info("      check_phase (scoreboard_c, task) -> match! ", { "\n" }, UVM_LOW)
-      end
-    else
-      begin
-        /*if(dst==0)
-          begin
-            for(int i=0;i<waiting_list0.size();i++)
-              begin
-                tmp_pkg = waiting_list0.pop_front();
-                if(expected_packet.compare(tmp_pkg))
-                  begin
-                    this.match=this.match+1;
-                    `uvm_info("      check_phase (scoreboard_c, task) -> match! ", { "\n" }, UVM_LOW)
-                  end
-                else
-                  waiting_list0.push_back(tmp_pkg);  
-              end
-            this.mismatch=this.mismatch+1;
-            `uvm_error(get_name(), "      check_phase (scoreboard_c, task) -> mismatch! here are the packets: ") 
-            pkg.print_package();
-            expected_packet.print_package();
-            //waiting_list0.push_front(expected_packet);
-          end
-        if(dst==1)
-          begin
-            for(int i=0;i<waiting_list1.size();i++)
-              begin
-                tmp_pkg = waiting_list1.pop_front();
-                if(expected_packet.compare(tmp_pkg))
-                  begin
-                    this.match=this.match+1;
-                    `uvm_info("      check_phase (scoreboard_c, task) -> match! ", { "\n" }, UVM_LOW)
-                  end
-                else
-                  waiting_list1.push_back(tmp_pkg);  
-              end
-            this.mismatch=this.mismatch+1;
-            `uvm_error(get_name(), "      check_phase (scoreboard_c, task) -> mismatch! here are the packets: ") 
-            pkg.print_package();
-            //expected_packet.print_package();
-            //waiting_list1.push_front(expected_packet);
-          end        
-      end  
-  endfunction*/
