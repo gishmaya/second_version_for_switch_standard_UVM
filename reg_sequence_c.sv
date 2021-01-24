@@ -1,5 +1,5 @@
 typedef enum { READ, WRITE } W_or_R;
-class reg_transaction_c extends uvm_sequence_item;
+class reg_sequence_c extends uvm_sequence_item;
 
   bit [3:0] address;
   bit [15:0] data;
@@ -15,7 +15,7 @@ class reg_transaction_c extends uvm_sequence_item;
     $display("There is a reg! name: ",this.name,", address: ",this.address, ", data: ", this.data, ", reg is for ", this.r_or_w);
   endfunction: print
   
-  `uvm_object_utils_begin(reg_transaction_c)
+  `uvm_object_utils_begin(reg_sequence_c)
   `uvm_field_int(address, UVM_ALL_ON)
   `uvm_field_int(data, UVM_ALL_ON)
   `uvm_field_string(name, UVM_ALL_ON)
@@ -108,7 +108,7 @@ class SW_reg_adapter extends uvm_reg_adapter;
  
    virtual function uvm_sequence_item reg2bus( const ref uvm_reg_bus_op rw );
       
-     reg_transaction_c reg_transaction = reg_transaction_c::type_id::create("reg_transaction");
+     reg_sequence_c reg_transaction = reg_sequence_c::type_id::create("reg_transaction");
      if ( rw.kind == UVM_READ )       
        reg_transaction.r_or_w = READ;
      else 
@@ -126,7 +126,7 @@ class SW_reg_adapter extends uvm_reg_adapter;
  
    virtual function void bus2reg( uvm_sequence_item bus_item,ref uvm_reg_bus_op rw );
       
-     reg_transaction_c reg_transaction;
+     reg_sequence_c reg_transaction;
      if ( ! $cast( reg_transaction, bus_item ) ) 
        begin
          `uvm_fatal( get_name(),
@@ -145,4 +145,4 @@ class SW_reg_adapter extends uvm_reg_adapter;
  
 endclass: SW_reg_adapter
 
-typedef uvm_reg_predictor#( reg_transaction_c ) SW_reg_predictor;
+typedef uvm_reg_predictor#( reg_sequence_c ) SW_reg_predictor;
