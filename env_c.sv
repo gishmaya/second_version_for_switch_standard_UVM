@@ -1,17 +1,17 @@
-`include "agent.sv"
-`include "reg_transaction.sv"
-`include "scoreboard.sv"
-`include "reg_agent.sv"
-`include "fc_subscriber.sv"
+`include "package_agent_c.sv"
+`include "reg_sequence_c.sv"
+`include "package_scoreboard_c.sv"
+`include "reg_agent_c.sv"
+`include "package_fc_subscriber_c.sv"
 
 class env_c extends uvm_env;
   `uvm_component_utils(env_c)
-  agent_c#(1)                  agent0;
-  agent_c#(1)                  agent1;
+  package_agent_c#(1)          agent0;
+  package_agent_c#(1)          agent1;
   reg_agent_c                  reg_agent;
-  package_fc_subscriber        pkg_fc_sub0;
-  package_fc_subscriber        pkg_fc_sub1;
-  package_scoreboard           pkg_sb;
+  package_fc_subscriber_c        pkg_fc_sub0;
+  package_fc_subscriber_c        pkg_fc_sub1;
+  package_scoreboard_c         pkg_sb;
     
   SW_reg_block                 regs_block;
   SW_reg_adapter               reg_adapter;
@@ -25,17 +25,17 @@ class env_c extends uvm_env;
     super.build_phase(phase);
     regs_block     = SW_reg_block::type_id::create( "regs_block" );
     regs_block.build();
-    agent0 =       agent_c#(1)::type_id::create("agent0", this);
-    agent1 =       agent_c#(1)::type_id::create("agent1", this);
+    agent0 =       package_agent_c#(1)::type_id::create("agent0", this);
+    agent1 =       package_agent_c#(1)::type_id::create("agent1", this);
 
     reg_agent  = reg_agent_c::type_id::create(.name("reg_agent"), .parent(this)); 
      
     reg_adapter    = SW_reg_adapter::type_id::create(.name("reg_adapter"),      .parent(this));
     reg_predictor  = SW_reg_predictor::type_id::create(.name("reg_predictor"),    .parent(this));
      
-    pkg_fc_sub0 = package_fc_subscriber::type_id::create(.name("pkg_fc_sub0"), .parent(this));
-    pkg_fc_sub1 = package_fc_subscriber::type_id::create(.name("pkg_fc_sub1"), .parent(this));
-    pkg_sb     = package_scoreboard::type_id::create(.name("pkg_sb"), .parent(this));
+    pkg_fc_sub0 = package_fc_subscriber_c::type_id::create(.name("pkg_fc_sub0"), .parent(this));
+    pkg_fc_sub1 = package_fc_subscriber_c::type_id::create(.name("pkg_fc_sub1"), .parent(this));
+    pkg_sb     = package_scoreboard_c::type_id::create(.name("pkg_sb"), .parent(this));
      
   endfunction: build_phase
       
