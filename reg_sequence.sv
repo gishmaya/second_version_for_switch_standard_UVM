@@ -1,7 +1,7 @@
-typedef uvm_sequencer#(reg_transaction_c) reg_sequencer;
+typedef uvm_sequencer#(reg_sequence_c) reg_sequencer;
 
-class reg_sequence extends uvm_sequence#();
-  `uvm_object_utils(reg_sequence)
+class reg_transaction_c extends uvm_sequence#();
+  `uvm_object_utils(reg_transaction_c)
   
   SW_reg_block regs_block;
   uvm_status_e status = UVM_IS_OK;
@@ -23,4 +23,4 @@ class reg_sequence extends uvm_sequence#();
     regs_block.addr_map_reg.mirror(status,UVM_CHECK);
     regs_block.addr_map_reg.read(status);
   endtask: body
-endclass: reg_sequence
+endclass: reg_transaction_c
