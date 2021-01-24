@@ -1,10 +1,10 @@
-`include "reg_seq.sv"
-`include "reg_driver.sv"
-`include "reg_monitor.sv"
+`include "reg_transaction_c.sv"
+`include "reg_driver_c.sv"
+`include "reg_monitor_c.sv"
 class reg_agent_c extends uvm_agent;
   `uvm_component_utils(reg_agent_c)
  
-  uvm_analysis_port#(reg_transaction_c) reg_ap;
+  uvm_analysis_port#(reg_sequence_c) reg_ap;
   reg_sequencer reg_seqr;
   reg_driver_c reg_drv;
   reg_monitor_c reg_moni;
