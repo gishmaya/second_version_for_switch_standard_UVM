@@ -1,6 +1,6 @@
 
-class driver_c#(parameter MASTER = 3) extends uvm_driver#(package_c);
-  `uvm_component_param_utils(driver_c#(MASTER))
+class package_driver_c#(parameter MASTER = 3) extends uvm_driver#(package_c);
+  `uvm_component_param_utils(package_driver_c#(MASTER))
   virtual package_i my_package_i;
   parameter L_MASTER = MASTER;
   integer num_of_this_agent;
@@ -61,7 +61,7 @@ class driver_c#(parameter MASTER = 3) extends uvm_driver#(package_c);
     my_package_i.package_in <= 0;
   endtask
            
-endclass:driver_c
+endclass:package_driver_c
 
 
 //with {package_length >= min && package_length <= max ;};
