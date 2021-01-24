@@ -1,7 +1,7 @@
-`include "sequence.sv"
+`include "package_transaction_c.sv"
 
-class package_monitor extends uvm_monitor;
-  `uvm_component_utils(package_monitor)
+class package_monitor_c extends uvm_monitor;
+  `uvm_component_utils(package_monitor_c)
  
   uvm_analysis_port#(package_c) pkg_ap;
  
@@ -176,119 +176,5 @@ class package_monitor extends uvm_monitor;
       listen_in_pkg();
     join_none
   endtask
-endclass: package_monitor
-        
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /*task listen_in_pkg();
-    integer length;
-    bit [7:0] header;
-    bit [7:0] source;
-    data_list in_pkt_as_queue;
-    
-    forever
-      begin
-        //make the queue empty, before the in_monitor will fill it. the queue will be the packet which have listened
-        while(in_pkt_as_queue.size()!=0)
-          void'(in_pkt_as_queue.pop_back());
-        @(posedge my_package_i.package_in_start);
-        //$display("      in_monitor -> package_in_start!!");
-        in_pkt_as_queue[0]=my_package_i.package_in;
-        cover_bit.sample(in_pkt_as_queue[0]);
-        header=my_package_i.package_in;
-        //$display("      in_monitor -> header is here!!  %h",header);
-        source=header[3:3];
-        //$display("      in_monitor -> source is here!!  %h",source);//," and port is ",l_port_num);
-        length=header[7:4];
-        //$display("      in_monitor -> length is here!!  %h",length);
-        @(posedge my_package_i.clk);
-        for(int i=1;i<(length+1);i++)
-          begin
-            @(posedge my_package_i.clk);
-            in_pkt_as_queue[i]=my_package_i.package_in;
-            cover_bit.sample(in_pkt_as_queue[i]);
-           // $display("      in_monitor -> i is:",i," here is the byte was be sent right now: %h",in_pkt_as_queue[i]);
-          end 
-        in_pkt_as_queue=this.predict(in_pkt_as_queue);
-        ready_pkt.unpack(in_pkt_as_queue);
-        if(length!=0)
-          begin
-            ready_pkt.packet_in_or_out = 0;
-            pkg_ap.write(ready_pkt);
-            `uvm_info("A new pkg go to DUT!", { "\n" }, UVM_LOW)
-            ready_pkt.print_package();
-          end
-      end
-  endtask*/
-        
-        
-        
-        /*
-        
-        while(out_pkt_as_queue.size()!=0)
-          void'(out_pkt_as_queue.pop_back());
-        @(posedge my_package_i.package_out_start);
-       //  $display("      out_monitor -> package_out_start!!");
-        if(my_package_i.read_data_valid)
-          begin
-         //   $display("      out_monitor -> there is valid together with the package_out_start");
-            header=my_package_i.package_out;
-            valid_0_last_clk=0;
-          end
-        out_pkt_as_queue[0]=header;
-        //$display("      out_monitor -> header is here!!  %h",header);
-        source=header[3:3];
-        // $display("      out_monitor -> source is here!!  %h",source);//," and port is ",l_port_num);
-        length=header[7:4];
-        //$display("      out_monitor -> length is here!!  %h",length);
-        @(posedge my_package_i.clk)
-        for(int i=1;i<(length+1);i++)//length+1 because length is without the header
-          begin
-            @(posedge my_package_i.clk);
-            if(my_package_i.read_data_valid)
-              begin
-                out_pkt_as_queue[i]=my_package_i.package_out;
-                if((my_package_i.package_out_start==0) && (valid_0_last_clk==1) )//&& valid_0_last_clk && !clk_flag)//continue from:if start is 1 and valid was 1
-                  begin
-                    valid_0_last_clk=0;
-                    //`uvm_error(get_name(), "      start is 0, flag valid 1 ") 
-                  end
-               // $display("      out_monitor -> i is:",i," here is the byte received  right now: %h",out_pkt_as_queue[i]);
-                if(i== length-2)     
-                `uvm_info(" finished reading the pkg!", { "\n" }, UVM_LOW)
-              end
-            else
-              begin
-                i--;
-                valid_0_last_clk = 1;
-              end
-          end
-        */
+endclass: package_monitor_c
+       
